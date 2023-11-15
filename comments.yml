@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Comments Service
+  description: |-
+    This is a Comment service
+  version: 0.0.1
+
+paths:
+  /comments/createComment:
+    post:
+      summary: Create a comment
+      description: creates a coment
+      operationId: createComment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+  /comments/getComments:
+    get:
+      summary: Get all comments
+      description: Get all comments
+      operationId: getComments
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/comment'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+  /comments/getComment/{commentId}:
+    get:
+      summary: Get all comments
+      description: Get all comments
+      operationId: getCommentById
+      parameters:
+        - in: path
+          name: commentId
+          schema:
+            type: integer
+            format: int32
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/comment'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Comment doesn't exist
+  /comments/deleteComments:
+    delete:
+      summary: Delete all comments
+      description: Delete all comments
+      operationId: deleteComments
+      responses:
+        '200':
+          description: successful operation
+components:
+  schemas:
+    comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 1
+        name:
+          type: string
+          example: 'divya'
+        created:
+          type: string
+          format: date-time
+        message:
+          type: string
+          example: "It's a comment"
+    SequenceId:
+      type: object
+      properties:
+        id:
+          type: string
+        seq:
+          type: integer
+          format: int32
+
